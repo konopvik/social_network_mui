@@ -1,42 +1,95 @@
-import { AppBar, Box, Button, Link, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import React from "react";
+import { useState } from "react";
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import MenuIcon from '@mui/icons-material/Menu';
 
-const pages = ["Profile", "Groups", "Settings"]
+const pages = ["Profile", "Groups", "Settings"];
+
 
 
 const Header = () => {
+
+
+const [anchorElNav, setAnchorElNav] = useState(null);
+
+
+const handleOpenNavMenu = (event) => {
+  setAnchorElNav(event.currentTarget);
+};
+
+const handleCloseNavMenu = () => {
+  setAnchorElNav(null);
+};
+
+
+
   return (
-    <Box
-    sx={{ flexGrow: 1 }}
+    <AppBar
+    position="static"
     >
-    <AppBar 
-    // position="static"
-    >
-      <Toolbar>
-        <Link 
-        href="#link to my profile"
-        color="inherit"
-        variant="h6"
-        component="span"
-        >
-        Profile
-        </Link>
-        <Typography
-        variant="h6" 
-        component="span"
-        sx={{ flexGrow: 1 }}
-        >
-          News
-        </Typography>
-        <Button
-        color="inherit"
-        >
-          Login
-        </Button>
-      </Toolbar>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <BookmarkIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
+            <Box sx={{ flexGrow: 1, display: {xs: 'flex', md: 'none'} }}>
+              <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+              >
+                <MenuIcon/>
+              </IconButton>
+              <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left'
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal:'left'
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{ display: {xs: 'block', md: 'none'} }}
+              >
+                {pages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+            <BookmarkIcon sx={{ display: { xs: 'flex', md: 'none'}, mr: 1 }}/>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex'} }}>
+                  {pages.map((page) => (
+                    <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block'}}
+                    >
+                      {page}
+                    </Button>
+                  ))}
+            </Box>
+        </Toolbar>
+      </Container>
     </AppBar>
-    </Box>
-    
     // <img src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg" />
   );
 };
