@@ -32,12 +32,8 @@ const handleCloseNavMenu = () => {
   setAnchorElNav(null);
 };
 
-
-
   return (
-    <AppBar
-    position="static"
-    >
+    <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <BookmarkIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
@@ -87,6 +83,9 @@ const handleCloseNavMenu = () => {
                     </Button>
                   ))}
             </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'flex' }, justifyContent: 'flex-end', alignItems: 'center' }}>
+            <Button color="inherit">Login</Button>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
